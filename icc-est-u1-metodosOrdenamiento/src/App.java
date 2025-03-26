@@ -33,6 +33,7 @@ public class App {
             System.out.println("¿Desea ver los pasos? (true/false)");
             boolean conPasos = lector.nextBoolean();
             int contadorComparacionesResultado = 0;
+            int [] respConts = {};
             switch (metodo) {
                 case 1:
                     System.out.print("Ascendente o Descendente: ");
@@ -115,13 +116,13 @@ public class App {
                     if(cond.equalsIgnoreCase("ascendente")){
                         mB.ordenar(arreglo,true);
                         metodoBurbujaClase.imprimirArreglo(arreglo);
-                        contadorComparacionesResultado= mB.ordenar(arreglo, true);
-                        System.out.println("Comparaciones -> "+contadorComparacionesResultado);
+                        respConts = mB.ordenar(arregloBase, conPasos);
+                        System.out.println("Comparaciones -> "+respConts[0]+" | Cambios -> "+respConts[1]);
                     }else if(cond.equalsIgnoreCase("descendente")){
                         mB.ordenar(arreglo,false);
                         metodoBurbujaClase.imprimirArreglo(arreglo);
-                        contadorComparacionesResultado= mB.ordenar(arreglo, false);
-                        System.out.println("Comparaciones -> "+contadorComparacionesResultado);
+                        respConts = mB.ordenar(arregloBase, conPasos);
+                        System.out.println("Comparaciones -> "+respConts[0]+" | Cambios -> "+respConts[1]);
                     }else{
                         System.out.println("No existe ese orden");
                     }
