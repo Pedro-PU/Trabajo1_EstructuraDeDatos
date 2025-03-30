@@ -2,8 +2,12 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws Exception {
         Scanner lector = new Scanner(System.in);
-        int [] arreglo  = {10, 9, 21, 5, 15, 2, -1, 0 };
-        int [] arregloBase = {10, 9, 21, 5, 15, 2, -1, 0 };
+        //int [] arreglo = new int[1000];
+        /*for(int i=0; i<arreglo.length; i++){
+            arreglo[i] = (int)(Math.random()*1000)+1;
+        }*/
+        int [] arreglo  = { 12, -7, 25, 0, -15, 33, 19, -22, 5, 48, -3, 27, -30, 14, 7, -1, 41, 20, -11, 8 };
+        int [] arregloBase = { 12, -7, 25, 0, -15, 33, 19, -22, 5, 48, -3, 27, -30, 14, 7, -1, 41, 20, -11, 8 };
         String cond = "";
         boolean continuar = true;
         //Instanciar MetodoBurbuja
@@ -24,158 +28,150 @@ public class App {
             System.out.println("3: Inserción");
             System.out.println("4: Burbuja Mejorado");
             System.out.println("5: Salir");
-            System.out.println("-".repeat(45));
-            int metodo = lector.nextInt();
+            System.out.println("-".repeat(120));
+            //int metodo = lector.nextInt();
+            int metodo = getPositve(lector,"\tIngresa la opción");
             if(metodo==5){
                 continuar = false;
                 break; 
             }
+            cond = getValidString(lector, new String[] {"ascendente","descendente"}, "Ascendente o Descendente: ");
+
             System.out.println("¿Desea ver los pasos? (true/false)");
             boolean conPasos = lector.nextBoolean();
-            int contadorComparacionesResultado = 0;
+            
+
             int [] respConts = {};
             switch (metodo) {
                 case 1:
-                    System.out.print("Ascendente o Descendente: ");
-                    cond = lector.next();
-                    /*boolean orden = cond.equalsIgnoreCase("ascendente");
-                    metodoBurbujaClase.ordenar(arreglo, orden);
-                    metodoBurbujaClase.imprimirArreglo(arreglo);*/
                     if(cond.equalsIgnoreCase("ascendente")){
-                        metodoBurbujaClase.ordenar(arreglo, true);
-                        metodoBurbujaClase.imprimirArreglo(arreglo);
-                        contadorComparacionesResultado = metodoBurbujaClase.ordenar(arregloBase, true);
-                        System.out.println("Comparaciones -> "+contadorComparacionesResultado);
+                        if(conPasos){
+                            respConts = metodoBurbujaClase.ordenar(arreglo, true, true);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }else{
+                            respConts = metodoBurbujaClase.ordenar(arreglo, true, false);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }
+                        System.out.println("Comparaciones -> "+respConts[0]+" | Cambios -> "+respConts[1]);
                     }else if(cond.equalsIgnoreCase("descendente")){
-                        metodoBurbujaClase.ordenar(arreglo, false);
-                        metodoBurbujaClase.imprimirArreglo(arreglo);
-                        contadorComparacionesResultado = metodoBurbujaClase.ordenar(arregloBase, false);
-                        System.out.println("Comparaciones -> "+contadorComparacionesResultado);
+                        if(conPasos){
+                            respConts = metodoBurbujaClase.ordenar(arreglo, false, true);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }else{
+                            respConts = metodoBurbujaClase.ordenar(arreglo, false, false);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }
+                        System.out.println("Comparaciones -> "+respConts[0]+" | Cambios -> "+respConts[1]);
                     }else{
                         System.out.println("No existe ese orden");
-                    }
-
-                    for(int i=0; i<arreglo.length;i++){
-                        arreglo[i]= arregloBase[i];
                     }
                 break;
                 case 2:
-                    System.out.print("Ascendente o Descendente: ");
-                    cond = lector.next();
-                    /*boolean orden = cond.equalsIgnoreCase("ascendente");
-                    mI.ordenar(arreglo, orden);
-                    metodoBurbujaClase.imprimirArreglo(arreglo);*/
                     if(cond.equalsIgnoreCase("ascendente")){
-                        mS.ordenar(arreglo,true);
-                        metodoBurbujaClase.imprimirArreglo(arreglo);
-                        contadorComparacionesResultado = mS.ordenarAsSeleccion(arregloBase);
-                        System.out.println("Comparaciones -> "+contadorComparacionesResultado);
+                        if(conPasos){
+                            respConts = mS.ordenar(arreglo,true,true);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }else{
+                            respConts = mS.ordenar(arreglo,true,false);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }
+                        System.out.println("Comparaciones -> "+respConts[0]+" | Cambios -> "+respConts[1]);
                     }else if(cond.equalsIgnoreCase("descendente")){
-                        mS.ordenar(arreglo,false);
-                        metodoBurbujaClase.imprimirArreglo(arreglo);
-                        contadorComparacionesResultado = mS.ordenarDesSeleccion(arregloBase);
-                        System.out.println("Comparaciones -> "+contadorComparacionesResultado);
+                        if(conPasos){
+                            respConts = mS.ordenar(arreglo,false,true);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }else{
+                            respConts = mS.ordenar(arreglo,false,false);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }
+                        System.out.println("Comparaciones -> "+respConts[0]+" | Cambios -> "+respConts[1]);
                     }else{
                         System.out.println("No existe ese orden");
-                    }
-
-                    for(int i=0; i<arreglo.length;i++){
-                        arreglo[i]= arregloBase[i];
                     }
                 break;
                 case 3:
-                    System.out.print("Ascendente o Descendente: ");
-                    cond = lector.next();
-                    /*boolean orden = cond.equalsIgnoreCase("ascendente");
-                    mS.ordenar(arreglo, orden);
-                    metodoBurbujaClase.imprimirArreglo(arreglo);*/
                     if(cond.equalsIgnoreCase("ascendente")){
-                        mI.ordenar(arreglo,true);
-                        metodoBurbujaClase.imprimirArreglo(arreglo);
-                        contadorComparacionesResultado= mI.insercionAscendente(arregloBase);
-                        System.out.println("Comparaciones -> "+contadorComparacionesResultado);
+                        if(conPasos){
+                            respConts = mI.ordenar(arreglo,true,true);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }else{
+                            respConts = mI.ordenar(arreglo,true,false);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }
+                        System.out.println("Comparaciones -> "+respConts[0]+" | Cambios -> "+respConts[1]);
                     }else if(cond.equalsIgnoreCase("descendente")){
-                        mI.ordenar(arreglo,false);
-                        metodoBurbujaClase.imprimirArreglo(arreglo);
-                        contadorComparacionesResultado= mI.insercionDescendente(arregloBase);
-                        System.out.println("Comparaciones -> "+contadorComparacionesResultado);
+                        if(conPasos){
+                            respConts = mI.ordenar(arreglo,false,true);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }else{
+                            respConts = mI.ordenar(arreglo,false,false);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }
+                        System.out.println("Comparaciones -> "+respConts[0]+" | Cambios -> "+respConts[1]);
                     }else{
                         System.out.println("No existe ese orden");
-                    }
-
-                    for(int i=0; i<arreglo.length;i++){
-                        arreglo[i]= arregloBase[i];
                     }
                 break;
                 case 4:
-                    System.out.print("Ascendente o Descendente: ");
-                    cond = lector.next();
-                    /*boolean orden = cond.equalsIgnoreCase("ascendente");
-                    mS.ordenar(arreglo, orden);
-                    metodoBurbujaClase.imprimirArreglo(arreglo);*/
                     if(cond.equalsIgnoreCase("ascendente")){
-                        mB.ordenar(arreglo,true);
-                        metodoBurbujaClase.imprimirArreglo(arreglo);
-                        respConts = mB.ordenar(arregloBase, conPasos);
+                        if(conPasos){
+                            respConts = mB.ordenar(arreglo, true,true);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }else{
+                            respConts = mB.ordenar(arreglo, true,false);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }
                         System.out.println("Comparaciones -> "+respConts[0]+" | Cambios -> "+respConts[1]);
                     }else if(cond.equalsIgnoreCase("descendente")){
-                        mB.ordenar(arreglo,false);
-                        metodoBurbujaClase.imprimirArreglo(arreglo);
-                        respConts = mB.ordenar(arregloBase, conPasos);
+                        if(conPasos){
+                            respConts = mB.ordenar(arreglo, false,true);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }else{
+                            respConts = mB.ordenar(arreglo, false,false);
+                            metodoBurbujaClase.imprimirArreglo(arreglo);
+                        }
                         System.out.println("Comparaciones -> "+respConts[0]+" | Cambios -> "+respConts[1]);
                     }else{
                         System.out.println("No existe ese orden");
                     }
-
-                    for(int i=0; i<arreglo.length;i++){
-                        arreglo[i]= arregloBase[i];
-                    }
+                    
                 break;
                 default:
                     System.out.println("No ingresó ningua de las 4 opciones");
                 break;
             }
+            for(int i=0; i<arreglo.length;i++){
+                arreglo[i]= arregloBase[i];
+            }
         }
-
-        /* 
-        //MetodoBurbuja
-        if(cond.equalsIgnoreCase("ascendente")){
-            metodoBurbujaClase.ordenar(arreglo, true);
-            metodoBurbujaClase.imprimirArreglo(arreglo);
-        }else if(cond.equalsIgnoreCase("descendente")){
-            metodoBurbujaClase.ordenar(arreglo, false);
-            metodoBurbujaClase.imprimirArreglo(arreglo);
-        }else{
-            System.out.println("No existe ese orden");
-        }
-        */
-
-        //MetodoSeleccion
-        /* 
-        if(cond.equalsIgnoreCase("ascendente")){
-            mS.ordenar(arreglo,true);
-            metodoBurbujaClase.imprimirArreglo(arreglo);
-        }else if(cond.equalsIgnoreCase("descendente")){
-            mS.ordenar(arreglo,false);
-            metodoBurbujaClase.imprimirArreglo(arreglo);
-        }else{
-            System.out.println("No existe ese orden");
-        }
-        
-
-        //DEBER: clase MetodoInserción, hacer de maner ascendente y descendente.
-        //MetodoInserción
-        if(cond.equalsIgnoreCase("ascendente")){
-            mI.ordenar(arreglo,true);
-            metodoBurbujaClase.imprimirArreglo(arreglo);
-        }else if(cond.equalsIgnoreCase("descendente")){
-            mI.ordenar(arreglo,false);
-            metodoBurbujaClase.imprimirArreglo(arreglo);
-        }else{
-            System.out.println("No existe ese orden");
-        }
-        */
-
+    }
+    public static int getPositve(Scanner lector, String mensaje){
+        int numero=0;
+        do{
+            System.out.println(mensaje + ": ");
+            numero = lector.nextInt();
+            if(numero<=0){
+                System.out.println("El número debe ser positivo. Intente nuevamente.");
+            }
+        }while(numero<=0);
+        return numero;
+    }
+    public static String getValidString(Scanner lector, String[] posibles, String messaje){
+        String input;
+        boolean valido = false;
+        do{
+            System.out.println(messaje + ": ");
+            input =lector.next();
+            valido = false;
+            for (String posible : posibles) {
+                //ascendente, descendente
+                if(input.equalsIgnoreCase(posible)){
+                    valido = true;
+                    break;
+                }
+            }
+        }while(!valido);
+        return input;
 
     }
 }
